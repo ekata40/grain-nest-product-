@@ -5,8 +5,8 @@ This project uses Next.js App Router, React, and Tailwind CSS. The product detai
 ## Before accepting orders
 
 1. The selling price is set to NPR 3,250, with NPR 3,500 crossed out, a 7% discount badge, and a flat NPR 150 delivery fee per order.
-2. Add the business Gmail address, sender email, Google Sheet settings, and SMTP credentials to `.env.local` using `.env.example` as a template. Never add private credentials to `NEXT_PUBLIC_*` variables or commit `.env.local`.
-3. Add a `BRAND_NAME` you want shown to customers. The starter name is “Grain Nest.” The business Gmail and sender/reply-to addresses are intentionally blank until supplied.
+2. Add the business email, sender email, Google Sheet settings, and SMTP credentials to `.env.local` locally or to the hosting provider's server environment. Never add private credentials to `NEXT_PUBLIC_*` variables or commit `.env.local`.
+3. `BRAND_NAME` defaults to “Grain Nest.” `EMAIL_FROM` should contain only the sender email address; the app adds the brand name to it.
 4. Use the project's supported Node.js version and install dependencies with `npm install`.
 
 ## Google Sheets setup
@@ -33,7 +33,7 @@ The sheet is the durable order record. Both notification emails are attempted on
 1. Copy `.env.example` to `.env.local` and fill in values. For the UI alone, credentials can remain blank, but order POSTs will return a configuration error.
 2. Run `npm install`, then `npm run dev` and visit `http://localhost:3000`.
 3. `GET /api/order` reports whether required Sheet and SMTP settings are present. Place a test order after configuring the price and credentials. Check the appended row, both email inboxes, and the thank-you page. Use a test spreadsheet and email accounts first.
-4. Push the project to a Git provider and import it into Vercel. Add the same server environment variables in the Vercel project's settings for each deployment environment, then deploy. `FRONTEND_URL` and `NEXT_PUBLIC_SITE_URL` should use the site's HTTPS origin.
+4. The GitHub repository is connected to Vercel. Its production branch is `master`; pushes to this branch trigger production deployments. Add server environment variables in Vercel's Project Settings for Production and Preview. `FRONTEND_URL` and `NEXT_PUBLIC_SITE_URL` should use the site's HTTPS origin. Keep rotated Google and SMTP credentials in Vercel only; do not commit them.
 
 ## Product content
 

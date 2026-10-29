@@ -41,7 +41,6 @@ async function saveOrder(order: Order) {
   // can still compile when credentials/dependencies have not been configured yet.
   // webpackIgnore keeps optional server integrations out of the client/dev bundle.
   // They are still loaded by Node when an order is submitted and configured.
-  // @ts-expect-error installed as a server runtime dependency
   const { google } = await import(/* webpackIgnore: true */ 'googleapis');
   const privateKey = env('GOOGLE_PRIVATE_KEY')?.replace(/\\n/g, '\n');
   const auth = new google.auth.JWT({ email: env('GOOGLE_SERVICE_ACCOUNT_EMAIL'), key: privateKey, scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
@@ -95,7 +94,6 @@ function emailShell(title: string, body: string) {
 }
 
 async function sendEmails(order: Order) {
-  // @ts-expect-error installed as a server runtime dependency
   const nodemailer = (await import(/* webpackIgnore: true */ 'nodemailer')).default;
   const transporter = nodemailer.createTransport({ host: env('SMTP_HOST'), port: Number(env('SMTP_PORT')), secure: Number(env('SMTP_PORT')) === 465, auth: { user: env('SMTP_USER'), pass: env('SMTP_PASS') } });
   const summary = `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:20px 0;border-top:1px solid #ecece5;border-bottom:1px solid #ecece5">${detailRows(order)}</table>`;
